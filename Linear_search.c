@@ -1,11 +1,10 @@
 #include <stdio.h>
 
 
-int busqueda_lineal (int A[], int clave, int n)
-{
-    for(int i=0;i<n;i++)
-        if (A[i]==clave) return i;
-    return -1;
+int busqueda_lineal (int array[], int target, int size) {
+    for (int i = 0; i < size; i++)  //Itera sobre todos los valores del array
+        if (arr[i]==target) return i;   //Si encuentra el numero devuelve su posicion
+    return -1;  //Si no lo encuentra devuelve -1
 }
 
 int main()
