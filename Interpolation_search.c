@@ -1,33 +1,44 @@
 #include <stdio.h>
 
-int interpolationSearch(int arr[], int n, int x) {
-    int low = 0, high = (n - 1);
-    while (low <= high && x >= arr[low] && x <= arr[high]) {
-        if (low == high) {
-            if (arr[low] == x)
-                return low;
-            return -1;
+int interpolationSearch(int array[], int size, int target) {
+    int left = 0;
+    int right = size - 1;
+    
+    while (left <= right && target >= array[left] && target <= array[right]) {
+        if (left == right) {
+            if (array[left] == target) {
+                return left; // Índice donde se encuentra el número buscado
+            }
+            return -1; // Si no se encuentra el número en el array
         }
-        int pos = low + (((double)(high - low) / (arr[high] - arr[low])) * (x - arr[low]));
-        if (arr[pos] == x)
-            return pos;
         
-        if (arr[pos] < x)
-            low = pos + 1;
-        else
-            high = pos - 1;
+        int pos = left + ((target - array[left]) * (right - left)) / (array[right] - array[left]);
+        
+        if (array[pos] == target) {
+            return pos; // Índice donde se encuentra el número buscado
+        }
+        
+        if (array[pos] < target) {
+            left = pos + 1;
+        } else {
+            right = pos - 1;
+        }
     }
-    return -1;
+    
+    return -1; // Si no se encuentra el número en el array
 }
 
 int main() {
-    int arr[] = {2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60};
-    int n = sizeof(arr) / sizeof(arr[0]);
-    int x = 30;
-    int result = interpolationSearch(arr, n, x);
-    if (result == -1)
-        printf("El elemento no se encuentra en el array.\n");
-    else
-        printf("El elemento se encuentra en la posición %d del array.\n", result);
+    int array[30] = {12, 34, 45, 67, 89, 112, 156, 178, 199, 234, 256, 267, 289, 312, 334, 356, 378, 389, 401, 423, 445, 467, 489, 512, 534, 556, 578, 589, 601, 623};
+    int target = 267;
+    
+    int result = interpolationSearch(array, 30, target);
+    
+    if (result == -1) {
+        printf("El número %d no se encuentra en el array.\n", target);
+    } else {
+        printf("El número %d se encuentra en el índice %d del array.\n", target, result);
+    }
+    
     return 0;
 }
